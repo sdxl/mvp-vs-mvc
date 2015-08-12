@@ -7,6 +7,7 @@
   var peeps = []
 
   window.Roster = {
+    lastID: 100,
 
     rotate: function () {
       // Variable for terseness
@@ -17,6 +18,7 @@
 
     add: function (person) {
       peeps.push(person)
+      Roster.lastID = person.id;
       App.pubsub.emit('change:roster')
     },
 

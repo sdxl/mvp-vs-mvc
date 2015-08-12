@@ -8,7 +8,7 @@
 
   // Presenter constructor
   People.Presenter = function (element) {
-
+    console.log(element)
     // The view itself
     var $view = $(element)
 
@@ -24,6 +24,19 @@
       e.preventDefault()
       var personId = $(e.currentTarget).attr('data-id')
       Roster.remove(personId)
+    })
+
+    $('.submit').on('click', function(e){
+      e.preventDefault()
+      var name = $('[name="firstname"]').val();
+      var age = $('[name="age"]').val();
+      var personObj ={
+        id: Roster.lastID + 1,
+        name: name,
+        age: age
+      }
+      debugger;
+      Roster.add(personObj)
     })
 
     // This is the function that puts the view on the page.
@@ -43,7 +56,11 @@
   }
 
   People.view = function () {
-    return $('<div class="people">').append(
+    return
+    // $('<form>')
+    //   .append($('<input type="text" name="firstname" value="First Name">'))
+    //   .append($('<input type="text" name="age" value="Age">'))
+      $('<div class="people">').append(
       $('<h3>').text("All People:"),
       // Note how there is no click handler here
       $('<button class="rotate">').text('Rotate')

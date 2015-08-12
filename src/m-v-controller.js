@@ -13,17 +13,41 @@
       // This is not very special (but it could be!)
       e.preventDefault()
       Roster.rotate()
+    },
+    addPerson: function(e) {
+      e.preventDefault()
+      var name = $('[name="firstname"]').val();
+      var age = $('[name="age"]').val();
+      var personObj ={
+        id: Roster.lastID + 1,
+        name: name,
+        age: age
+      }
+      Roster.add(personObj)
     }
   }
 
   // Views
   People.view = function () {
+
+    // <form>Add Name:
+    // <input type='text' name='firstname'>
+    // Age:
+    // <input type='text' name='age'>
+    // <button class='submit'>Submit</button>
+    // </form>
+
     return $('<div class="people">').append(
       $('<h3>').text("All People:"),
 
       // Example of the View connecting to a Controller action
+      $('<input type="text" name="firstname" value="Name">'),
+      $('<input type="text" name="age" value="age">'),
+      $('<button class="submit">').text("Submit")
+                                  .on('click', People.controller.addPerson),
+      $('<br>'),
+      $('<br>'),
       $('<button>').text('Rotate').on('click', People.controller.rotate),
-
       // Example of the View reading from the Model
       Roster.map(personView)
     )
@@ -39,6 +63,8 @@
         e.preventDefault()
         Roster.remove(person.id)
       })
+
+
     )
   }
 
